@@ -1,0 +1,10 @@
+abb,aceptada
+abcd,aceptada
+a,rechazada
+bac,rechazada
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,aceptada
+abccccd,aceptada
+abc,rechazada
+abcc,aceptada
+bacd,rechazada
+abba,rechazada
