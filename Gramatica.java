@@ -42,7 +42,8 @@ public class Gramatica{
 			AFN afn = new AFN(data);
 
 		} catch(Exception e){
-			System.out.println("Error al leer el archivo revise las banderas ingresadas");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }
