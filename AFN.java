@@ -8,11 +8,12 @@ public class AFN {
     String[] simNoF, simF, trans;
     String inicial;
     int numNewEstados = 1;
-    char analizando;
+    ArrayList<String> analizando = new ArrayList<>();
+    ArrayList<String> newestados = new ArrayList<>();
 
 
 
-    public AFN(ArrayList<String> data){
+    public AFN(ArrayList<String> data, String nombreArchivo){
         this.simNoF = data.get(0).split(",");
         this.simF = data.get(1).split(",");
         this.inicial = data.get(2);
@@ -21,27 +22,24 @@ public class AFN {
 
 
         GLDreduced();
-        /*System.out.println("inicial "+inicial);
-        System.out.println("finales "+Arrays.toString(this.simF));
-        System.out.println("no finales "+Arrays.toString(this.simNoF));*/
-        System.out.println("trans " + Arrays.toString(this.trans));
-        
+
+        try{
+            
+            FileWriter fileWriter = new FileWriter(nombreArchivo)
+
+
+
+        } catch(Exception e){
+
+        }
+
     }
 
     public void GLDreduced(){
         for(int transicion = 0; transicion <= this.trans.length - 1; transicion++){
             if(this.trans[transicion].length() - 1 > 4){
-                for(int letra = 3; letra < (this.trans[transicion]).length() - 1; letra++){
-                    this.analizando = this.trans[transicion].charAt(0);
+                this.trans_reduced.addAll(Arrays.asList(reduced((this.trans[transicion]).length() - 3, this.trans[transicion])));
 
-
-                    //Buen camino solo afinar, prueba para hacerlo 'java Gramatica tests/gramaticas/kk.gld hex.txt -afn hola.txt'
-                    if(Arrays.asList(simF).contains(Character.toString(this.trans[transicion].charAt(letra + 1)))){
-                        this.trans_reduced.add(this.analizando + "->" + this.trans[transicion].charAt(letra) + this.numNewEstados + "_" + this.analizando);
-                        this.trans_reduced.add(this.numNewEstados + "_" + this.analizando + "->" + this.trans[transicion].charAt(letra + 1) + this.trans[transicion].charAt(letra + 2));
-                        this.numNewEstados++;
-                    }
-                }
             } else {
                 this.trans_reduced.add(this.trans[transicion]);
             }
@@ -51,4 +49,36 @@ public class AFN {
 
         System.out.println("Reducido " + this.trans_reduced.toString());
     }
+
+    public String[] reduced(int ciclos, String regla){
+ 
+        this.newestados.add(Character.toString(regla.charAt(0)));
+
+        for(int letra = 3; letra < regla.length() - 1; letra++){
+            if(Arrays.asList(simF).contains(Character.toString(regla.charAt(letra + 1)))){
+                
+                String genEstados = Integer.toString(this.numNewEstados) + this.newestados.get(0);
+                this.newestados.add(genEstados);
+
+                String newState = this.newestados.get(letra - 3) + "->" + regla.charAt(letra) + this.newestados.get(letra - 2);
+                this.analizando.add(newState);
+
+            } else{
+                String newState = this.newestados.get((letra - 3)) + "->" + regla.charAt(letra) + regla.charAt(letra + 1);
+                this.analizando.add(newState);
+            }
+
+            
+            this.numNewEstados++;
+        }
+
+        String[] reducido = this.analizando.toArray(new String[this.analizando.size()]);
+        this.analizando.clear();
+        this.newestados.clear();
+
+        System.out.println(Arrays.toString(reducido));
+
+        return reducido;
+    }
+
 }
