@@ -60,28 +60,6 @@ public class AFN {
             }
         }
 
-        /*
-        
-        COdigo fallido
-        
-        String estado_analizando = this.trans_reduced.get(0).substring(0, 3);
-        String agrupado = "";
-        for(int estado = 0; estado < this.trans_reduced.size(); estado++){
-            if(estado_analizando.equals((this.trans_reduced.get(estado)).substring(0, 3))){
-                agrupado = agrupado + (this.trans_reduced.get(estado)).substring(4, this.trans_reduced.get(estado).length()) + ";";
-
-            } else {
-                this.estadosAgrupados.add(agrupado.substring(0, agrupado.length() - 1));
-                estado_analizando = this.trans_reduced.get(estado).substring(0, 3);
-                agrupado = "";
-                agrupado = agrupado + (this.trans_reduced.get(estado)).substring(4, this.trans_reduced.get(estado).length()) + ";";
-            }
-            
-        }
-
-        this.estadosAgrupados.add(agrupado.substring(0, agrupado.length() - 1));*/
-
-
         //hashmap para poder llamar desde el estado como W y remplazarlo a 1 por ejemplo
         HashMap<String,String> reglaTransiciones = new HashMap<>();
         for(int posiciones = 1; posiciones <= this.Keynewestados.size(); posiciones++){
@@ -99,16 +77,24 @@ public class AFN {
 
 
         //intente colocar numeros en ves de estados pero al parecer falla en la validacion
+
+        Collections.reverse(this.Keynewestados);
         for(int iteracion = 0; iteracion < this.trans_reduced.size(); iteracion++){
-            for(int inteEstados = 0; inteEstados < this.todoslosestados.size(); inteEstados++){
-                String estadoanalizando = this.todoslosestados.get(inteEstados);
+            
+            for(int inteEstados = 0; inteEstados < this.Keynewestados.size(); inteEstados++){
+                String estadoanalizando = this.Keynewestados.get(inteEstados);
 
                 if(this.trans_reduced.get(iteracion).contains(estadoanalizando)){
                     String nuevoEstado = this.trans_reduced.get(iteracion).replace(estadoanalizando, reglaTransiciones.get(estadoanalizando));
                     this.trans_reduced.set(iteracion, nuevoEstado);
-                    iteracion = 0;
+                    inteEstados = 0;
                 }
             }
+        }
+
+        ArrayList<String> alfabeto = new ArrayList<>();
+        for(int i = 0; i < this.simF.length - 1; i++){
+            alfabeto.add(simF[i]);
         }
 
         
@@ -117,7 +103,7 @@ public class AFN {
 
         System.out.println("Estado con numero para transicion " + reglaTransiciones.toString());
         System.out.println("estados " + this.Keynewestados.toString());
-        //System.out.println("kk " + this.reglaTransFinal.toString());
+        System.out.println("kk " + this.todoslosestados.toString());
         System.out.println("trans_reduced " + this.trans_reduced.toString());
     }
 

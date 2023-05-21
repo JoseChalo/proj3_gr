@@ -18,7 +18,7 @@
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
-            "args": ["tests/gramaticas/n_a_seguidas_de_2_b.gld", "hex.txt", "-afn", "hola.txt"]
+            "args": ["tests/gramaticas/ejemplo_presentacion.gld", "hex.txt", "-afn", "hola.txt"]
         },
         {
             "type": "java",
@@ -26,7 +26,7 @@
             "request": "launch",
             "mainClass": "Gramatica",
             "projectName": "proj3_gr_5c0f8bc"
-            "args": ["tests/gramaticas/n_a_seguidas_de_2_b.gld", "hex.txt", "-afn", "hola.txt"]
+            "args": ["tests/gramaticas/ejemplo_presentacion.gld", "hex.txt", "-afn", "hola.txt"]
         }
     ]
 }
