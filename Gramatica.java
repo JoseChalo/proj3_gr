@@ -39,7 +39,7 @@ public class Gramatica{
 
 			text.close();
 
-			AFN afn = new AFN(data);
+			AFN afn = new AFN(data, args[2]);
 
 		} catch(Exception e){
 			System.out.println(e.getMessage());
