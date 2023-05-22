@@ -88,14 +88,21 @@ public class AFN {
                     String nuevoEstado = this.trans_reduced.get(iteracion).replace(estadoanalizando, reglaTransiciones.get(estadoanalizando));
                     this.trans_reduced.set(iteracion, nuevoEstado);
                     inteEstados = 0;
+                } else {
+                    for(int i = 0; i <= simF.length - 1; i++){
+                        if (Character.toString(this.trans_reduced.get(iteracion).charAt(this.trans_reduced.get(iteracion).length() - 1)).equals(simF[i])){
+                            String nuevoEstado = this.trans_reduced.get(iteracion) + String.valueOf(reglaTransiciones.size() + 1);
+                            this.trans_reduced.set(iteracion, nuevoEstado);
+                            inteEstados = 0;
+                        }
+                    }
+       
                 }
             }
         }
 
-        ArrayList<String> alfabeto = new ArrayList<>();
-        for(int i = 0; i < this.simF.length - 1; i++){
-            alfabeto.add(simF[i]);
-        }
+        
+
 
         
 
